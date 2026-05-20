@@ -1,0 +1,8 @@
+{
+  "name": "Music Player",
+  "description": "A web music player compatible with Navidrome and Subsonic API, offering an Apple Music-like design interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
