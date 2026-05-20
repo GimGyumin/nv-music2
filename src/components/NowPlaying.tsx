@@ -647,17 +647,17 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
   const hasOverlay = showLyrics || showWiki || showQueue;
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col overflow-hidden bg-black/10 text-zinc-900 animate-in slide-in-from-bottom-full duration-500 dark:bg-black/40 dark:text-white">
+    <div className={`fixed inset-0 z-[100] flex flex-col overflow-hidden bg-black/40 animate-in slide-in-from-bottom-full duration-500 dark:bg-black/60 ${isLightCover ? 'text-white' : 'text-zinc-900'} dark:text-white`}>
       <div
         className="absolute inset-[-20%] pointer-events-none transition-all duration-1000"
         style={bgStyle}
       />
-      <div className="absolute inset-0 pointer-events-none bg-black/10 backdrop-blur-[60px] dark:bg-black/30 animate-in fade-in duration-700" />
+      <div className="absolute inset-0 pointer-events-none bg-black/20 backdrop-blur-[60px] dark:bg-black/40 animate-in fade-in duration-700" />
 
       <div className="relative z-[80] flex items-center justify-between px-4 pb-2 pt-[calc(env(safe-area-inset-top)+1rem)] sm:px-6 sm:pb-4 animate-in fade-in slide-in-from-top duration-700 delay-100">
         <button
           onClick={onClose}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/20 text-zinc-900 shadow-sm backdrop-blur-2xl transition-all duration-300 hover:bg-white/30 hover:scale-110 active:scale-95 dark:border-white/10 dark:bg-black/20 dark:text-white dark:hover:bg-black/40"
+          className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/20 shadow-sm backdrop-blur-2xl transition-all duration-300 hover:bg-white/30 hover:scale-110 active:scale-95 dark:border-white/10 dark:bg-black/20 dark:hover:bg-black/40 ${isLightCover ? 'text-white' : 'text-zinc-900'} dark:text-white`}
           aria-label="Close now playing"
         >
           <ChevronDown size={24} />
@@ -675,9 +675,9 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
                     style={{ ...bgStyle, transform: 'translateY(10%) scale(0.9)' }}
                   />
               <div
-                className="relative aspect-square w-[min(68vw,36vh,26rem)] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 hover:scale-105 dark:border-white/5 sm:w-[min(72vw,42vh,26rem)]"
+                className="relative h-[min(68vw,36vh,26rem)] w-[min(68vw,36vh,26rem)] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 hover:scale-105 dark:border-white/5"
               >
-                {coverArt ? <img src={coverArt} crossOrigin="anonymous" alt={currentSong.title} className="h-full w-full object-cover object-center" /> : null}
+                {coverArt ? <img src={coverArt} crossOrigin="anonymous" alt={currentSong.title} className="h-full w-full object-contain object-center" /> : null}
               </div>
             </div>
 
@@ -731,10 +731,10 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
                         onClick={() => setSeekTo(line.time)}
                         className={`flex cursor-pointer flex-col transition-all duration-500 ${
                           isActive
-                            ? 'scale-[1.02] text-zinc-900 dark:text-white'
+                            ? `scale-[1.02] ${isLightCover ? 'text-white' : 'text-zinc-900'} dark:text-white`
                             : isPassed
-                              ? 'text-zinc-400 dark:text-white/40'
-                              : 'text-zinc-300 dark:text-white/20'
+                              ? `${isLightCover ? 'text-white/80' : 'text-zinc-400'} dark:text-white/40`
+                              : `${isLightCover ? 'text-white/60' : 'text-zinc-300'} dark:text-white/20`
                         } ${
                           line.side === 'left' ? 'items-start text-left' : line.side === 'right' ? 'items-end text-right' : 'items-center text-center'
                         } hover:text-red-500 dark:hover:text-red-400`}
@@ -754,7 +754,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
                   })}
                 </div>
               ) : plainLyrics ? (
-                <div className="pt-4 text-xl font-medium leading-relaxed text-zinc-800 dark:text-white/80 sm:pt-12 sm:text-3xl animate-in fade-in duration-700 delay-100">
+                <div className={`pt-4 text-xl font-medium leading-relaxed sm:pt-12 sm:text-3xl animate-in fade-in duration-700 delay-100 ${isLightCover ? 'text-white' : 'text-zinc-800'} dark:text-white/80`}>
                   <div className="whitespace-pre-line">{plainLyrics}</div>
                   {translatedLyrics && (
                     <div className="mt-8 whitespace-pre-line text-red-600 dark:text-red-300">
@@ -784,7 +784,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
               ) : (
                 <div className="animate-in fade-in duration-700 delay-100">
                   <div className="mb-7">
-                    <h3 className="mb-2 text-2xl font-bold text-black drop-shadow-sm dark:text-white sm:text-3xl">{t('songInformation')}</h3>
+                    <h3 className={`mb-2 text-2xl font-bold drop-shadow-sm sm:text-3xl ${isLightCover ? 'text-white' : 'text-black'} dark:text-white`}>{t('songInformation')}</h3>
                     {wikiData?.songTitle && <p className="mb-4 text-base font-semibold text-zinc-600 dark:text-zinc-400 sm:text-lg">{wikiData.songTitle}</p>}
 
                     {wikiData?.songExtract ? (
@@ -800,7 +800,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
                   </div>
 
                   <div className="mb-7">
-                    <h3 className="mb-2 text-2xl font-bold text-black drop-shadow-sm dark:text-white sm:text-3xl">{t('artistInformation')}</h3>
+                    <h3 className={`mb-2 text-2xl font-bold drop-shadow-sm sm:text-3xl ${isLightCover ? 'text-white' : 'text-black'} dark:text-white`}>{t('artistInformation')}</h3>
                     {wikiData?.artistTitle && <p className="mb-4 text-base font-semibold text-zinc-600 dark:text-zinc-400 sm:text-lg">{wikiData.artistTitle}</p>}
 
                     {wikiData?.artistExtract ? (
@@ -817,7 +817,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
 
                   {wikiData?.credits && (
                     <div className="mb-7">
-                      <h3 className="mb-4 text-2xl font-bold text-black drop-shadow-sm dark:text-white sm:text-3xl">{t('credits')}</h3>
+                      <h3 className={`mb-4 text-2xl font-bold drop-shadow-sm sm:text-3xl ${isLightCover ? 'text-white' : 'text-black'} dark:text-white`}>{t('credits')}</h3>
                       <p className="whitespace-pre-line rounded-lg border border-white/20 bg-white/10 p-4 text-base font-medium leading-relaxed text-zinc-800 drop-shadow-sm dark:border-white/10 dark:bg-black/20 dark:text-zinc-200 sm:p-6 sm:text-lg">
                         {wikiData.credits}
                       </p>
@@ -833,7 +833,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
         {showQueue && (
           <div className="absolute inset-0 z-20 flex min-h-0 w-full flex-col px-4 sm:px-8 lg:px-[18vw] animate-in fade-in slide-in-from-bottom-8 duration-800 delay-100" onClick={() => setOpenMenuIndex(null)}>
             <div className="min-h-0 flex-1 overflow-y-auto pb-8 pr-1 sm:pb-12">
-              <h3 className="mb-4 text-2xl font-bold text-black drop-shadow-sm dark:text-white sm:text-3xl animate-in fade-in duration-700 delay-200">{t('queue')}</h3>
+              <h3 className={`mb-4 text-2xl font-bold drop-shadow-sm sm:text-3xl animate-in fade-in duration-700 delay-200 ${isLightCover ? 'text-white' : 'text-black'} dark:text-white`}>{t('queue')}</h3>
               <div className="space-y-2 animate-in fade-in duration-700 delay-300">
                 {queue.map((song, index) => (
                   <div
@@ -916,7 +916,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
           </div>
         )}
         <div className="mb-5 flex w-full max-w-4xl items-center gap-3 sm:mb-8 sm:gap-6 group">
-          <span className="w-12 text-right text-xs font-medium tabular-nums text-black/60 transition-colors group-hover:text-black dark:text-white/60 dark:group-hover:text-white sm:w-16 sm:text-sm">
+          <span className={`w-12 text-right text-xs font-medium tabular-nums transition-colors sm:w-16 sm:text-sm ${isLightCover ? 'text-white/60 group-hover:text-white' : 'text-black/60 group-hover:text-black'} dark:text-white/60 dark:group-hover:text-white`}>
             {formatTime(localTime)}
           </span>
           <div className="relative flex flex-1 items-center">
@@ -944,7 +944,7 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
               style={{ left: `calc(${((localTime || 0) / (duration || 100)) * 100}% - 8px)` }}
             />
           </div>
-          <span className="w-12 text-xs font-medium tabular-nums text-black/60 transition-colors group-hover:text-black dark:text-white/60 dark:group-hover:text-white sm:w-16 sm:text-sm">
+          <span className={`w-12 text-xs font-medium tabular-nums transition-colors sm:w-16 sm:text-sm ${isLightCover ? 'text-white/60 group-hover:text-white' : 'text-black/60 group-hover:text-black'} dark:text-white/60 dark:group-hover:text-white`}>
             {formatTime(duration)}
           </span>
         </div>
@@ -952,39 +952,43 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
         <div className="flex w-full max-w-4xl flex-col items-center gap-6 sm:gap-10">
           {/* Playback Controls */}
           <div className="flex items-center justify-center gap-4 sm:gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
-            <button onClick={playPrev} className={`rounded-full flex items-center justify-center transition-all bg-transparent ${isLightCover ? 'text-zinc-900' : 'text-white'} hover:scale-110 active:scale-95`} style={{ height: 40, width: 40 }} aria-label="Previous">
+            <button onClick={playPrev} className="rounded-full flex items-center justify-center transition-all text-white hover:scale-110 active:scale-95 hover:bg-white/10 p-2" style={{ height: 40, width: 40 }} aria-label="Previous">
               <SkipBack size={18} />
             </button>
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className={`flex items-center justify-center rounded-full transition-all bg-transparent ${isLightCover ? 'text-zinc-900' : 'text-white'}`}
-              style={{ height: 56, width: 56, padding: 0 }}
+              className={`flex items-center justify-center rounded-full transition-all text-white ${isPlaying ? 'bg-white/20 p-4' : 'bg-white/10 p-3'} hover:bg-white/30 active:scale-95`}
+              style={{ height: 56, width: 56 }}
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? <Pause size={22} className="fill-current" /> : <Play size={22} className="fill-current" />}
             </button>
-            <button onClick={playNext} className={`rounded-full flex items-center justify-center transition-all bg-transparent ${isLightCover ? 'text-zinc-900' : 'text-white'} hover:scale-110 active:scale-95`} style={{ height: 40, width: 40 }} aria-label="Next">
+            <button onClick={playNext} className="rounded-full flex items-center justify-center transition-all text-white hover:scale-110 active:scale-95 hover:bg-white/10 p-2" style={{ height: 40, width: 40 }} aria-label="Next">
               <SkipForward size={18} />
             </button>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex w-full max-w-sm items-center justify-between px-4 sm:px-0">
+          <div className="flex w-full max-w-sm items-center justify-between px-4 sm:px-0 gap-2">
             <a
               href={getDownloadUrl(currentSong.id)}
               download
-              className={`flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition-all duration-300 hover:scale-110 active:scale-95 sm:h-14 sm:w-14 ${isLightCover ? 'text-zinc-900' : 'text-white'}`}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-zinc-800 backdrop-blur-xl transition-all duration-300 hover:bg-white/25 hover:scale-110 active:scale-95 dark:text-zinc-100 sm:h-10 sm:w-10 border border-white/20 dark:border-white/10 hover:border-white/30"
               title={t('downloadTrack')}
             >
-              <Download size={22} className="sm:h-[26px] sm:w-[26px]" />
+              <Download size={18} />
             </a>
             
             <button
               onClick={handleWikiClick}
-              className={`flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition-all duration-300 hover:scale-110 active:scale-95 sm:h-14 sm:w-14 ${isLightCover ? 'text-zinc-900' : 'text-white'}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-xl transition-all duration-300 hover:scale-110 active:scale-95 sm:h-10 sm:w-10 border ${
+                showWiki
+                  ? 'bg-white/40 text-red-600 border-white/50 dark:bg-white/35 dark:text-red-400 dark:border-white/40 shadow-lg shadow-red-500/20'
+                  : 'bg-white/15 text-zinc-800 border-white/20 dark:text-zinc-100 dark:border-white/10 hover:bg-white/25 hover:border-white/30'
+              }`}
               title={t('songInfo')}
             >
-              {loadingWiki ? <Loader2 size={22} className="animate-spin sm:h-[26px] sm:w-[26px]" /> : <Info size={22} className="sm:h-[26px] sm:w-[26px]" />}
+              {loadingWiki ? <Loader2 size={18} className="animate-spin" /> : <Info size={18} />}
             </button>
             <button
               onClick={() => {
@@ -992,18 +996,26 @@ export default function NowPlaying({ isOpen, onClose, onArtistClick }: NowPlayin
                 setShowLyrics(false);
                 setShowWiki(false);
               }}
-              className={`flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition-all duration-300 hover:scale-110 active:scale-95 sm:h-14 sm:w-14 ${isLightCover ? 'text-zinc-900' : 'text-white'}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-xl transition-all duration-300 hover:scale-110 active:scale-95 sm:h-10 sm:w-10 border ${
+                showQueue
+                  ? 'bg-white/40 text-red-600 border-white/50 dark:bg-white/35 dark:text-red-400 dark:border-white/40 shadow-lg shadow-red-500/20'
+                  : 'bg-white/15 text-zinc-800 border-white/20 dark:text-zinc-100 dark:border-white/10 hover:bg-white/25 hover:border-white/30'
+              }`}
               title={t('showQueue')}
             >
-              <ListMusic size={22} className="sm:h-[26px] sm:w-[26px]" />
+              <ListMusic size={18} />
             </button>
 
             <button
               onClick={handleLyricsClick}
-              className={`flex h-12 w-12 items-center justify-center rounded-full bg-transparent transition-all duration-300 hover:scale-110 active:scale-95 sm:h-14 sm:w-14 ${isLightCover ? 'text-zinc-900' : 'text-white'}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-xl transition-all duration-300 hover:scale-110 active:scale-95 sm:h-10 sm:w-10 border ${
+                showLyrics
+                  ? 'bg-white/40 text-red-600 border-white/50 dark:bg-white/35 dark:text-red-400 dark:border-white/40 shadow-lg shadow-red-500/20'
+                  : 'bg-white/15 text-zinc-800 border-white/20 dark:text-zinc-100 dark:border-white/10 hover:bg-white/25 hover:border-white/30'
+              }`}
               title={t('toggleLyrics')}
             >
-              <MessageSquareText size={22} className="sm:h-[26px] sm:w-[26px]" />
+              <MessageSquareText size={18} />
             </button>
           </div>
           {/* Track info modal removed */}

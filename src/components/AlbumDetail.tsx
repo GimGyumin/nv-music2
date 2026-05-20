@@ -328,7 +328,7 @@ export default function AlbumDetail({ albumId, onBack, onArtistClick }: AlbumDet
         />
 
         {/* Header with back button (menu moved beside shuffle) */}
-        <div className="px-6 pt-20 lg:pt-8 text-left flex items-center justify-between animate-in fade-in slide-in-from-top-2 duration-500 delay-100">
+        <div className="px-6 pt-6 lg:pt-6 text-left flex items-center justify-between animate-in fade-in slide-in-from-top-2 duration-500 delay-100">
           <button
             onClick={onBack}
             aria-label="Back"
@@ -422,17 +422,11 @@ export default function AlbumDetail({ albumId, onBack, onArtistClick }: AlbumDet
               }
 
               if (!desc) {
-                // show small debug hint listing available top-level keys so we can see where description lives
-                const keys = Object.keys(a).slice(0, 20).join(', ');
-                return (
-                  <div className="mt-6 px-4 text-sm leading-relaxed max-w-4xl mx-auto relative z-60 text-zinc-500">
-                    <div>설명 정보가 없습니다. album 키: <span className="font-mono text-xs">{keys}</span></div>
-                  </div>
-                );
+                return null;
               }
 
               return (
-                <div className="mt-8 px-4 text-sm leading-relaxed max-w-4xl mx-auto relative z-60 mb-0">
+                <div className="mt-8 px-4 text-sm leading-relaxed max-w-4xl mx-auto relative z-60 mb-4 lg:mb-4">
                   <div
                     className={`prose prose-sm dark:prose-invert ${isLight ? 'text-zinc-900' : 'text-white'} dark:text-zinc-200`}
                     style={{ maxHeight: '4.5em', overflow: 'hidden' }}
@@ -468,8 +462,8 @@ export default function AlbumDetail({ albumId, onBack, onArtistClick }: AlbumDet
         </div>
 
         {/* Tracklist - Inherits main background */}
-        <div className="mt-6 min-h-[50vh] animate-in fade-in duration-700 delay-500">
-          <div className="px-6 pt-10">
+        <div className="mt-2 min-h-[50vh] animate-in fade-in duration-700 delay-500">
+          <div className="px-6 pt-1.5">
             <div className={`flex items-center text-xs font-black uppercase tracking-[0.2em] pb-4 border-b mb-4 px-4 transition-colors ${isLight ? 'text-black/40 border-black/10' : 'text-white/40 border-white/10'}`}>
               <div className="w-12 text-right mr-4 font-bold opacity-60">#</div>
               <div className="flex-1">{t('title')}</div>
@@ -496,7 +490,7 @@ export default function AlbumDetail({ albumId, onBack, onArtistClick }: AlbumDet
                           key={song.id}
                           onClick={() => handlePlaySong(originalIndex)}
                           onDoubleClick={() => handlePlaySong(originalIndex)}
-                          className={`group flex items-center rounded-xl px-4 py-4 sm:py-3.5 text-sm transition-all duration-300 cursor-pointer touch-manipulation hover:translate-x-1 animate-in fade-in ${isActive ? (isLight ? 'bg-black/10 shadow-sm' : 'bg-white/20 shadow-sm') : (isLight ? 'hover:bg-black/5' : 'hover:bg-white/5')}`}
+                          className={`group flex items-center rounded-xl px-4 py-2 text-sm transition-all duration-300 cursor-pointer touch-manipulation hover:translate-x-1 animate-in fade-in ${isActive ? (isLight ? 'bg-black/10 shadow-sm' : 'bg-white/20 shadow-sm') : (isLight ? 'hover:bg-black/5' : 'hover:bg-white/5')}`}
                         >
                           <div className={`w-12 text-right mr-4 tabular-nums font-bold ${isLight ? 'text-black' : 'text-white'}`}>
                             {/* Number / Play Button Toggle */}

@@ -76,7 +76,7 @@ export default function ArtistDetail({ artistId, onBack, onAlbumClick }: ArtistD
   const albums: Album[] = artist.album || [];
 
   return (
-    <div className="p-4 sm:p-8 pb-32 max-w-7xl mx-auto w-full pt-20 lg:pt-8">
+    <div className="p-4 sm:p-8 pb-32 max-w-7xl mx-auto w-full pt-6 lg:pt-6">
       <button 
         onClick={onBack}
         className="mb-8 flex items-center gap-3 text-sm font-semibold rounded-full h-10 w-10 items-center justify-center transition-colors"
@@ -111,19 +111,22 @@ export default function ArtistDetail({ artistId, onBack, onAlbumClick }: ArtistD
         </div>
       </div>
 
-      <div className="flex gap-8 border-b border-zinc-200 dark:border-zinc-800 mb-8 sticky top-0 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm z-50">
-        <button 
-          onClick={() => setActiveTab('albums')}
-          className={`pb-4 text-sm font-bold uppercase tracking-widest transition-colors border-b-2 ${activeTab === 'albums' ? 'text-red-500 border-red-500' : 'text-zinc-400 border-transparent hover:text-zinc-900 dark:hover:text-zinc-300'}`}
-        >
-          {t('albums')}
-        </button>
+      <div className="sticky top-0 z-50 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm mb-8 -mx-4 sm:-mx-8 px-4 sm:px-8">
+        <h2 className={`text-2xl font-bold mb-6 pt-6 ${activeTab === 'albums' ? 'text-zinc-900 dark:text-white' : 'text-zinc-900 dark:text-white'}`}>{t('artists')}</h2>
+        <div className="flex gap-8 border-b border-zinc-200 dark:border-zinc-800">
+          <button 
+            onClick={() => setActiveTab('albums')}
+            className={`pb-4 text-sm font-bold uppercase tracking-widest transition-colors border-b-2 ${activeTab === 'albums' ? 'text-red-500 border-red-500' : 'text-zinc-400 border-transparent hover:text-zinc-900 dark:hover:text-zinc-300'}`}
+          >
+            {t('albums')}
+          </button>
         <button 
           onClick={() => setActiveTab('songs')}
           className={`pb-4 text-sm font-bold uppercase tracking-widest transition-colors border-b-2 ${activeTab === 'songs' ? 'text-red-500 border-red-500' : 'text-zinc-400 border-transparent hover:text-zinc-900 dark:hover:text-zinc-300'}`}
         >
           {t('songs')}
         </button>
+        </div>
       </div>
 
       {activeTab === 'albums' ? (
